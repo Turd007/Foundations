@@ -1,0 +1,20 @@
+# Backward-compatible entry and alias
+def prove_lyapunov(claim=None, F_next=None, V_str=None, epsilon=None, domain=None, **kw):
+    """
+    Supports:
+      - new: prove_lyapunov(claim=dict(...))
+      - old: prove_lyapunov(F_next, V_str, epsilon=None, domain=None)
+      - typo: prove_Laypunov(...)
+    """
+    if isinstance(claim, dict):
+        F_next  = claim["F_next"]
+        V_str   = claim["V"]
+        epsilon = float(claim.get("epsilon", 1e-6))
+        domain  = claim.get("domain", {})
+    else:
+        if epsilon is None: epsilon = 1e-6
+        if domain  is None: domain  = {}
+    return _prove_lyapunov(F_next, V_str, epsilon, domain)  # call your existing core
+
+def prove_Laypunov(*args, **kwargs):  # legacy misspelling
+    return prove_lyapunov(*args, **kwargs)

@@ -1,0 +1,30 @@
+﻿# OS
+Thumbs.db
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+.build/
+dist/
+.env
+.venv/
+venv/
+pip-wheel-metadata/
+
+# IDEs/Editors
+.idea/
+.vscode/
+*.code-workspace
+
+# Logs/Reports
+reports/*.jsonl
+reports/*.log
+
+# Byte-compiled cache
+*.pickle
+*.pkl

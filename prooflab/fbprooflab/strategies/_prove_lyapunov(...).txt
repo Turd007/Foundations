@@ -1,0 +1,25 @@
+from __future__ import annotations
+from typing import Dict, Any, List, Optional
+from sympy import symbols, sympify, simplify
+import random
+
+# Backward-compatible entry + alias for misspelling
+def prove_lyapunov(claim=None, F_next=None, V_str=None, epsilon=None, domain=None, **kw):
+    """
+    Supports both new dict-style: prove_lyapunov(claim=dict)
+    and old style: prove_lyapunov(F_next, V_str, epsilon=None, domain=None)
+    """
+    if isinstance(claim, dict):  # new path
+        F_next  = claim["F_next"]
+        V_str   = claim["V"]
+        epsilon = float(claim.get("epsilon", 1e-6))
+        domain  = claim.get("domain", {})
+    else:  # legacy path
+        if epsilon is None: epsilon = 1e-6
+        if domain  is None: domain  = {}
+    return _prove_lyapunov(F_next, V_str, epsilon, domain)
+
+# Keep old public name working (common typo)
+def prove_Laypunov(*args, **kwargs):
+    return prove_lyapunov(*args, **kwargs)
+
